@@ -9,7 +9,7 @@ namespace MyAwesomeBlog.Web.Site.Controllers
             return View();
         }
 
-        public IActionResult Detail(string slug)
+        public IActionResult Detail(int id, string slug)
         {
             return View();
         }
