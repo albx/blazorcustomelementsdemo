@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using MyAwesomeBlog.Core;
+using MyAwesomeBlog.Web.Site.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<MyAwesomeBlogContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyAwesomeBlog")));
+
+builder.Services.AddScoped<PostsControllerServices>();
 
 builder.Services.AddControllersWithViews();
 

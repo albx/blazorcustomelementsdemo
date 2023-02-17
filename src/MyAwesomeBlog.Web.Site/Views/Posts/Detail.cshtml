@@ -1,7 +1,33 @@
-﻿
+﻿@model MyAwesomeBlog.Web.Site.Models.Posts.DetailViewModel
 @{
     ViewData["Title"] = "Detail";
 }
 
-<h1>Detail</h1>
+<div class="container-fluid">
+    @if (Model is null)
+    {
+        <h1>Ops! The post you searched for does not exist</h1>
+        <h2>Please, go back to the post list</h2>
+        <p>
+            <a asp-action="Archive" asp-controller="Posts">View all posts</a>
+        </p>
+    }
+    else
+    {
+        <h1>@Model.Title</h1>
+        <p>
+            <small>published on @Model.PublishDate.ToShortDateString()</small>
+        </p>
+        <hr />
+        @if (!string.IsNullOrWhiteSpace(Model.Content))
+        {
+            <div>
+                @Markdown.ToHtml(Model.Content)
+            </div>
+        }
 
+        <p>
+            <a asp-action="Archive" asp-controller="Posts">View all posts</a>
+        </p>
+    }
+</div>

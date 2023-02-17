@@ -10,6 +10,12 @@ public class MyAwesomeBlogContext : DbContext
 	{
 	}
 
+    public DbSet<Post> Posts { get; set; }
+
+    public DbSet<Comment> Comments { get; set; }
+
+    public DbSet<Rate> Rates { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
