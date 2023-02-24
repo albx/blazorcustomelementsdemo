@@ -12,7 +12,7 @@ using MyAwesomeBlog.Core;
 namespace MyAwesomeBlog.Core.Migrations
 {
     [DbContext(typeof(MyAwesomeBlogContext))]
-    [Migration("20230217145318_Initial")]
+    [Migration("20230224130437_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -55,7 +55,7 @@ namespace MyAwesomeBlog.Core.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("MyAwesomeBlog.Core.Models.Post", b =>
@@ -90,7 +90,7 @@ namespace MyAwesomeBlog.Core.Migrations
                     b.HasIndex("Title")
                         .IsUnique();
 
-                    b.ToTable("Post");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("MyAwesomeBlog.Core.Models.Rate", b =>
@@ -111,7 +111,7 @@ namespace MyAwesomeBlog.Core.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Rate");
+                    b.ToTable("Rates");
                 });
 
             modelBuilder.Entity("MyAwesomeBlog.Core.Models.Comment", b =>

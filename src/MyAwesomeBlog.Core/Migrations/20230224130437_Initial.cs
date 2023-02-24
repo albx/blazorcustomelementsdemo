@@ -12,7 +12,7 @@ namespace MyAwesomeBlog.Core.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Post",
+                name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -24,11 +24,11 @@ namespace MyAwesomeBlog.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Post", x => x.Id);
+                    table.PrimaryKey("PK_Posts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -40,17 +40,17 @@ namespace MyAwesomeBlog.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Post_PostId",
+                        name: "FK_Comments_Posts_PostId",
                         column: x => x.PostId,
-                        principalTable: "Post",
+                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rate",
+                name: "Rates",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -60,40 +60,40 @@ namespace MyAwesomeBlog.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rate", x => x.Id);
+                    table.PrimaryKey("PK_Rates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rate_Post_PostId",
+                        name: "FK_Rates_Posts_PostId",
                         column: x => x.PostId,
-                        principalTable: "Post",
+                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_Content",
-                table: "Comment",
+                name: "IX_Comments_Content",
+                table: "Comments",
                 column: "Content");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_PostId",
-                table: "Comment",
+                name: "IX_Comments_PostId",
+                table: "Comments",
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_Slug",
-                table: "Post",
+                name: "IX_Posts_Slug",
+                table: "Posts",
                 column: "Slug",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_Title",
-                table: "Post",
+                name: "IX_Posts_Title",
+                table: "Posts",
                 column: "Title",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rate_PostId",
-                table: "Rate",
+                name: "IX_Rates_PostId",
+                table: "Rates",
                 column: "PostId");
         }
 
@@ -101,13 +101,13 @@ namespace MyAwesomeBlog.Core.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Rate");
+                name: "Rates");
 
             migrationBuilder.DropTable(
-                name: "Post");
+                name: "Posts");
         }
     }
 }

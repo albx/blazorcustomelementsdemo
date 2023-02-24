@@ -44,7 +44,7 @@ public class PostsControllerServices
                 Slug = p.Slug
             });
 
-        var pageCount = (int)Math.Ceiling(posts.Count() / 20.0);
+        var pageCount = posts.Any() ? (int)Math.Ceiling(posts.Count() / 20.0) : 1;
 
         var model = new ArchiveViewModel
         {
