@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AC5CCEF5-F55
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyAwesomeBlog.Web.Site", "src\MyAwesomeBlog.Web.Site\MyAwesomeBlog.Web.Site.csproj", "{ECC73CCC-9085-4362-B781-B1FD995D27E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAwesomeBlog.Core", "src\MyAwesomeBlog.Core\MyAwesomeBlog.Core.csproj", "{40BAAB98-6FE2-4A0D-A0B5-5A6350964170}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyAwesomeBlog.Core", "src\MyAwesomeBlog.Core\MyAwesomeBlog.Core.csproj", "{40BAAB98-6FE2-4A0D-A0B5-5A6350964170}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAwesomeBlog.Web.Api", "src\MyAwesomeBlog.Web.Api\MyAwesomeBlog.Web.Api.csproj", "{2EAC6D8A-B124-4383-BBA6-ED98355C1560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{40BAAB98-6FE2-4A0D-A0B5-5A6350964170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40BAAB98-6FE2-4A0D-A0B5-5A6350964170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40BAAB98-6FE2-4A0D-A0B5-5A6350964170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EAC6D8A-B124-4383-BBA6-ED98355C1560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EAC6D8A-B124-4383-BBA6-ED98355C1560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EAC6D8A-B124-4383-BBA6-ED98355C1560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EAC6D8A-B124-4383-BBA6-ED98355C1560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{ECC73CCC-9085-4362-B781-B1FD995D27E8} = {AC5CCEF5-F55B-43CB-B836-2B928C9CBF2A}
 		{40BAAB98-6FE2-4A0D-A0B5-5A6350964170} = {AC5CCEF5-F55B-43CB-B836-2B928C9CBF2A}
+		{2EAC6D8A-B124-4383-BBA6-ED98355C1560} = {AC5CCEF5-F55B-43CB-B836-2B928C9CBF2A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2B54EE8E-CC3B-47D6-8870-A0D47872B237}
