@@ -4,7 +4,7 @@ public static class Posts
 {
     public static WebApplication MapPostsEndpoints(this WebApplication app)
     {
-        var posts = app.MapGroup("/api/posts");
+        var posts = app.MapGroup("/api/posts").WithOpenApi();
         posts.MapGet("/", GetPosts);
         posts.MapGet("/{id}", GetPostDetail);
         posts.MapPost("/", CreateNewPost);
