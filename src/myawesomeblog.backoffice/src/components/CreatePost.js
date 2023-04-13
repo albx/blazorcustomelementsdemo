@@ -15,7 +15,7 @@ function CreatePost() {
         <>
             <h1>Create new post</h1>
             <hr />
-            <PostForm onSave={createNewPost} post={{title: 'ciao', slug: 'ciao-a-utti', content: 'ciao mondo'}} />
+            <PostForm onSave={createNewPost} />
         </>
     )
 }

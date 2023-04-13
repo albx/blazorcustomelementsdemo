@@ -1,37 +1,52 @@
-﻿namespace MyAwesomeBlog.Web.Api.Endpoints;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyAwesomeBlog.Web.Api.Services;
+using MyAwesomeBlog.Web.Models.Comments;
+
+namespace MyAwesomeBlog.Web.Api.Endpoints;
 
 public static class Comments
 {
     public static WebApplication MapCommentsEndpoints(this WebApplication app)
     {
-        var comments = app.MapGroup("/api/posts/{postId}/comments");
-        comments.MapGet("/", GetComments);
-        comments.MapGet("/{id}", GetCommentDetail);
-        comments.MapPost("/", AddComment);
-        comments.MapDelete("/{id}", DeleteComment);
+        var comments = app.MapGroup("/api/posts/{postId}/comments").WithOpenApi();
+        comments.MapGet("/", GetComments).WithName(nameof(GetComments));
+        comments.MapPost("/", AddComment).WithName(nameof(AddComment));
+        comments.MapDelete("/{id}", DeleteComment).WithName(nameof(DeleteComment));
 
         return app;
     }
 
     #region Handlers
-    private static Task GetComments(HttpContext context)
+    private static async Task<IResult> GetComments(int postId, CommentsService service)
     {
-        throw new NotImplementedException();
+        var comments = await service.GetCommentsAsync(postId);
+        return Results.Ok(comments);
     }
 
-    private static Task GetCommentDetail(HttpContext context)
+    private static async Task<IResult> AddComment(int postId, [FromBody] AddComment model, CommentsService service)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await service.AddCommentAsync(postId, model);
+            return Results.Ok();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return Results.BadRequest();
+        }
     }
 
-    private static Task AddComment(HttpContext context)
+    private static async Task<IResult> DeleteComment(int postId, int id, CommentsService service)
     {
-        throw new NotImplementedException();
-    }
-
-    private static Task DeleteComment(HttpContext context)
-    {
-        throw new NotImplementedException();
+        try
+        {
+            await service.DeleteCommentAsync(postId, id);
+            return Results.NoContent();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return Results.NotFound();
+        }
     }
     #endregion
 }

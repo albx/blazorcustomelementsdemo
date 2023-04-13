@@ -21,7 +21,8 @@ function PostForm({ post, onSave }) {
                 <textarea type="text"
                     className="form-control"
                     id="postContent"
-                    aria-describedby="postContent" {...register('content', { required: true })}
+                    aria-describedby="postContent" 
+                    {...register('content', { required: true })}
                     rows="20"></textarea>
             </div>
             <div className="mb-3">

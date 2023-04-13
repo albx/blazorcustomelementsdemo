@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PostForm from "./PostForm";
 import PostDisplay from "./PostDisplay";
@@ -8,6 +8,13 @@ function PostDetail() {
 
     const [readonly, setReadonly] = useState(true);
     const [post, setPost] = useState({});
+
+    const updatePost = useCallback(async (post) => {
+        console.log(post);
+
+        setPost(post);
+        setReadonly(true);
+    }, [])
 
     useEffect(() =>{
         //...api call
@@ -24,7 +31,7 @@ function PostDetail() {
         <>
             <h1>{slug}</h1>
             <hr/>
-            {readonly ? <PostDisplay post={post} /> : <PostForm post={post} />}
+            {readonly ? <PostDisplay post={post} /> : <PostForm post={post} onSave={updatePost} />}
         </>
     )
 }
