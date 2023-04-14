@@ -1,46 +1,32 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PostItem from "./PostItem";
-
-const postsPromise = new Promise((resolve, reject) => {
-    const posts = [
-        {
-            id: 1,
-            title: 'My first post',
-            slug: 'my-first-post',
-            publishDate: '2023-04-07T00:00:00.000Z'
-        },
-        {
-            id: 2,
-            title: 'Another post',
-            slug: 'another-post',
-            publishDate: '2023-04-07T00:00:00.000Z'
-        },
-        {
-            id: 3,
-            title: 'An awesome post, again',
-            slug: 'an-awesome-post-again',
-            publishDate: '2023-04-07T00:00:00.000Z'
-        }
-    ]
-
-    resolve(posts)
-})
+import axios from "axios";
 
 function Dashboard() {
-    //useState vs useEffect (eseguire la funzione passata SOLO se sono verificate delle condizioni)
-
     const [posts, setPostList] = useState([])
 
     useEffect(() => {
         const loadPosts = async () => {
-            //const postsJson = await fetch('/api/....');
-            const posts = await postsPromise; //await postsJson.json();
-
+            const postsJson = await axios.get('/api/posts');
+            const posts = postsJson.data;
             setPostList(posts);
         }
         
         loadPosts();
     }, []);
+
+    const deletePost = useCallback(async (post) => {
+        try {
+            await axios.delete(`/api/posts/${post.id}`);
+            alert(`Post ${post.title} deleted successfully!`);
+            
+            const postsJson = await axios.get('/api/posts');
+            const posts = postsJson.data;
+            setPostList(posts);
+        } catch (error) {
+            alert(`There was an error deleting ${post.title}`);
+        }
+    }, [])
 
     return (
         <>
@@ -48,7 +34,7 @@ function Dashboard() {
             <hr />
             <div className="list-group">
                 {posts.map(p => (
-                    <PostItem post={p} key={p.id} />
+                    <PostItem post={p} onDelete={deletePost} key={p.id} />
                 ))}
             </div>
         </>

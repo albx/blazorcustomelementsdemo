@@ -19,7 +19,7 @@ builder.Services
     .AddScoped<RatesService>();
 
 builder.Services
-    .AddCors(options => options.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod()));
+    .AddCors(options => options.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
 var app = builder.Build();
 

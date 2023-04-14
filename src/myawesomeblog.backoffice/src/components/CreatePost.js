@@ -1,14 +1,21 @@
 import { useCallback } from "react";
 import { useNavigate } from 'react-router-dom'
 import PostForm from './PostForm'
+import axios from "axios";
 
 function CreatePost() {
     
     const navigate = useNavigate();
 
-    const createNewPost = useCallback((post) => {
-        console.log(post);
-        navigate('/');
+    const createNewPost = useCallback(async (post) => {
+        try {
+            await axios.post('/api/posts', post);
+            alert('Post created successfully!');
+
+            navigate('/');
+        } catch (error) {
+            alert(`Error creating post ${post.title}. Please try again`);
+        }
     }, [navigate]);
 
     return (
