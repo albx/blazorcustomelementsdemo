@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MyAwesomeBlog.Web.Site.Models;
+using MyAwesomeBlog.Web.Site.Services;
 
 namespace MyAwesomeBlog.Web.Site.Controllers;
 
@@ -8,14 +9,18 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeControllerServices Services { get; }
+
+    public HomeController(HomeControllerServices services, ILogger<HomeController> logger)
     {
+        Services = services ?? throw new ArgumentNullException(nameof(services));
         _logger = logger;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var model = Services.GetIndexViewModel();
+        return View(model);
     }
 
     public IActionResult Privacy()

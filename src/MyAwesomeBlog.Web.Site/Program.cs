@@ -8,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MyAwesomeBlogContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyAwesomeBlog")));
 
-builder.Services.AddScoped<PostsControllerServices>();
+builder.Services
+    .AddScoped<HomeControllerServices>()
+    .AddScoped<PostsControllerServices>();
 
 builder.Services.AddControllersWithViews();
 

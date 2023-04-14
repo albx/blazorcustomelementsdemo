@@ -1,8 +1,23 @@
-﻿@{
+﻿@model MyAwesomeBlog.Web.Site.Models.Home.IndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Latest posts</h1>
+</div>
+
+<div class="row">
+    @foreach (var post in Model.LatestPosts)
+    {
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-text">@post.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@post.PublishDate.ToShortDateString()</h6>
+                    <a asp-action="Detail" asp-controller="Posts" asp-route-id="@post.Id" asp-route-slug="@post.Slug">Read</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

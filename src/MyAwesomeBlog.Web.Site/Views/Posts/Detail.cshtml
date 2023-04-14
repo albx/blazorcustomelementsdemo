@@ -3,31 +3,35 @@
     ViewData["Title"] = "Detail";
 }
 
-<div class="container-fluid">
+<div class="row">
     @if (Model is null)
     {
-        <h1>Ops! The post you searched for does not exist</h1>
-        <h2>Please, go back to the post list</h2>
-        <p>
-            <a asp-action="Archive" asp-controller="Posts">View all posts</a>
-        </p>
+        <div class="col-md-12">
+            <h1>Ops! The post you searched for does not exist</h1>
+            <h2>Please, go back to the post list</h2>
+        </div>
     }
     else
     {
-        <h1>@Model.Title</h1>
-        <p>
-            <small>published on @Model.PublishDate.ToShortDateString()</small>
-        </p>
-        <hr />
-        @if (!string.IsNullOrWhiteSpace(Model.Content))
-        {
-            <div>
-                @Markdown.ToHtml(Model.Content)
-            </div>
-        }
-
-        <p>
-            <a asp-action="Archive" asp-controller="Posts">View all posts</a>
-        </p>
+        <div class="col-md-8">
+            <h1>@Model.Title</h1>
+            <p>
+                <small>published on @Model.PublishDate.ToShortDateString()</small>
+            </p>
+            <hr />
+            @if (!string.IsNullOrWhiteSpace(Model.Content))
+            {
+                <div>
+                    @(new Microsoft.AspNetCore.Html.HtmlString(Markdown.ToHtml(Model.Content)))
+                </div>
+            }
+        </div>
+        <div class="col-md-4">
+            <h2>Comments goes here...</h2>
+        </div>
     }
 </div>
+
+<p>
+    <a asp-action="Archive" asp-controller="Posts">View all posts</a>
+</p>
