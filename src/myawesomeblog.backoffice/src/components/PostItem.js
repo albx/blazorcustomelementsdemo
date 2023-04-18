@@ -8,7 +8,7 @@ function PostItem({ post, onDelete }) {
         if (window.confirm(`You are going to delete post ${post.title}. Are you sure?`)) {
             onDelete(post);
         }
-    }, [post])
+    }, [onDelete, post])
 
     return (
         <div className="list-group-item list-group-item-action">

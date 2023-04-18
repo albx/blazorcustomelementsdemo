@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PostForm from "./PostForm";
 import PostDisplay from "./PostDisplay";
 import axios from "axios";
+
+const buildPostCommentsUrl = (id, slug) => `/post/${id}/${slug}/comments`;
 
 function PostDetail() {
     const { id, slug } = useParams();
@@ -42,7 +44,8 @@ function PostDetail() {
                     <h1>{post.title}</h1>
                 </div>
                 <div className="col-auto d-flex align-items-center">
-                    {readonly && <button type="button" className="btn btn-primary" onClick={enableEdit}>Edit</button>}
+                    {readonly && <button type="button" className="btn btn-primary me-2" onClick={enableEdit}>Edit</button>}
+                    <Link className="btn btn-outline-primary" to={buildPostCommentsUrl(id, slug)}>view comments</Link>
                 </div>
             </div>
             <hr/>

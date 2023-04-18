@@ -5,6 +5,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import PostDetail from './components/PostDetail';
 import CreatePost from './components/CreatePost';
+import PostComments from './components/PostComments';
 
 const userInfo = {
   userRole: 'administrator',
@@ -26,6 +27,7 @@ function App() {
               <Route path='/' element={<Dashboard />} />
               <Route path='/post/:id/:slug' element={<PostDetail />} />
               <Route path='/new' element={<CreatePost />} />
+              <Route path='/post/:id/:slug/comments' element={<PostComments />} />
             </Routes>
           </div>
         </main>
