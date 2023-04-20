@@ -16,7 +16,7 @@ function PostComments() {
                 </div>
             </div>
             <hr />
-            <h2>Comments goes here</h2>
+            <post-comments post-id={id}></post-comments>
         </>
     )
 }
