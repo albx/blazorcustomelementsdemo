@@ -1,0 +1,85 @@
+﻿@inject CommentsService Service
+
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                @errorMessage
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <EditForm Model="model" OnValidSubmit="AddCommentAsync" class="col-md-12">
+        <DataAnnotationsValidator />
+        <div class="mb-3">
+            <label class="form-label">Author</label>
+            <InputText @bind-Value="model.Author" class="form-control" />
+            <ValidationMessage For="@(() => model.Author)" class="text-danger" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Comment</label>
+            <InputTextArea @bind-Value="model.Content" class="form-control" />
+            <ValidationMessage For="@(() => model.Content)" class="text-danger" />
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
+</div>
+<hr />
+<div class="row">
+    @if (!comments.Any())
+    {
+        <h2>No comments here</h2>
+    }
+    else
+    {
+        @foreach (var comment in comments)
+        {
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        @comment.Author (@comment.PostedAt.ToShortDateString()):
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@comment.Content</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int PostId { get; set; }
+
+    private IEnumerable<CommentListItem> comments = Enumerable.Empty<CommentListItem>();
+
+    private AddComment model = new();
+
+    private string? errorMessage = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCommentsAsync();
+    }
+
+    private async Task LoadCommentsAsync() => comments = await Service.LoadCommentsForPost(PostId);
+
+    private async Task AddCommentAsync()
+    {
+        try
+        {
+            await Service.AddCommentAsync(PostId, model);
+            model = new();
+
+            await LoadCommentsAsync();
+        }
+        catch
+        {
+            errorMessage = "Error adding new comment. Please, try again later";
+        }
+    }
+}

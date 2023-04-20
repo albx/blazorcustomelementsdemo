@@ -1,8 +1,12 @@
-﻿namespace MyAwesomeBlog.Web.Models.Comments;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MyAwesomeBlog.Web.Models.Comments;
 
 public class AddComment
 {
-    public string Author { get; init; } = string.Empty;
+    [Required]
+    public string Author { get; set; } = string.Empty;
 
-    public string Content { get; init; } = string.Empty;
+    [Required]
+    public string Content { get; set; } = string.Empty;
 }
