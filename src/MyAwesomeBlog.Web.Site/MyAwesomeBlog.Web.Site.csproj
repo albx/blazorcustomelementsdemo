@@ -8,15 +8,17 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.31.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyAwesomeBlog.Core\MyAwesomeBlog.Core.csproj" />
+    <ProjectReference Include="..\MyAwesomeBlog.Web.UI.Blazor\MyAwesomeBlog.Web.UI.Blazor.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,7 +13,7 @@
     }
     else
     {
-        <div class="col-md-8">
+        <div class="col-md-7">
             <h1>@Model.Title</h1>
             <p>
                 <small>published on @Model.PublishDate.ToShortDateString()</small>
@@ -26,8 +26,8 @@
                 </div>
             }
         </div>
-        <div class="col-md-4">
-            <h2>Comments goes here...</h2>
+        <div class="col-md-5">
+            <post-comments post-id="@Model.Id"></post-comments>
         </div>
     }
 </div>
@@ -35,3 +35,8 @@
 <p>
     <a asp-action="Archive" asp-controller="Posts">View all posts</a>
 </p>
+
+@section Scripts { 
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="/_content/Microsoft.AspNetCore.Components.CustomElements/Microsoft.AspNetCore.Components.CustomElements.lib.module.js"></script>
+}
