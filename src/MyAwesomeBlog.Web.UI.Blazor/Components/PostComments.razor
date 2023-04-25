@@ -1,5 +1,7 @@
 ﻿@inject CommentsService Service
 
+<h2>@Title</h2>
+
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
     <div class="row">
@@ -55,6 +57,12 @@
     [Parameter]
     public int PostId { get; set; }
 
+    [Parameter]
+    public EventCallback<AddComment> OnCommentAdded { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
     private IEnumerable<CommentListItem> comments = Enumerable.Empty<CommentListItem>();
 
     private AddComment model = new();
@@ -70,16 +78,6 @@
 
     private async Task AddCommentAsync()
     {
-        try
-        {
-            await Service.AddCommentAsync(PostId, model);
-            model = new();
-
-            await LoadCommentsAsync();
-        }
-        catch
-        {
-            errorMessage = "Error adding new comment. Please, try again later";
-        }
+        await OnCommentAdded.InvokeAsync(model);
     }
 }

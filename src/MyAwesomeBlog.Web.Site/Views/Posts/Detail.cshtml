@@ -37,6 +37,31 @@
 </p>
 
 @section Scripts { 
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script src="/_content/Microsoft.AspNetCore.Components.CustomElements/Microsoft.AspNetCore.Components.CustomElements.lib.module.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Blazor.start().then(() => {
+                const postComments = document.querySelector("post-comments");
+                const postId = postComments.getAttribute('post-id');
+
+                postComments.title = 'Hello from frontend';
+                postComments.onCommentAdded = async (comment) => {
+                    const url = `http://localhost:5238/api/posts/${postId}/comments`;
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(comment)
+                    })
+
+                    if (response.ok) {
+                        alert('Your comment has been saved! Thank you for your feedback');
+                    }
+                }
+            });
+        });
+    </script>
 }
