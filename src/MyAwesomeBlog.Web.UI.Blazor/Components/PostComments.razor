@@ -31,13 +31,13 @@
 </div>
 <hr />
 <div class="row">
-    @if (!comments.Any())
+    @if (!Comments.Any())
     {
         <h2>No comments here</h2>
     }
     else
     {
-        @foreach (var comment in comments)
+        @foreach (var comment in Comments)
         {
             <div class="col-md-12">
                 <div class="card">
@@ -63,18 +63,19 @@
     [Parameter]
     public string Title { get; set; }
 
-    private IEnumerable<CommentListItem> comments = Enumerable.Empty<CommentListItem>();
+    [Parameter]
+    public IEnumerable<CommentListItem> Comments { get; set; } = Enumerable.Empty<CommentListItem>();
 
     private AddComment model = new();
 
     private string? errorMessage = null;
 
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadCommentsAsync();
-    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    await LoadCommentsAsync();
+    //}
 
-    private async Task LoadCommentsAsync() => comments = await Service.LoadCommentsForPost(PostId);
+    //private async Task LoadCommentsAsync() => comments = await Service.LoadCommentsForPost(PostId);
 
     private async Task AddCommentAsync()
     {

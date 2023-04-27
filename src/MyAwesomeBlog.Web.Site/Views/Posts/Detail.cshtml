@@ -41,10 +41,21 @@
     <script src="/_content/Microsoft.AspNetCore.Components.CustomElements/Microsoft.AspNetCore.Components.CustomElements.lib.module.js"></script>
 
     <script>
+        const loadPostComments = async (postId) => {
+            const url = `http://localhost:5238/api/posts/${postId}/comments`;
+            const response = await fetch(url);
+            return response.json();
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             Blazor.start().then(() => {
                 const postComments = document.querySelector("post-comments");
                 const postId = postComments.getAttribute('post-id');
+
+                loadPostComments(postId)
+                    .then((comments) => {
+                        postComments.comments = comments
+                    });
 
                 postComments.title = 'Hello from frontend';
                 postComments.onCommentAdded = async (comment) => {
@@ -59,6 +70,9 @@
 
                     if (response.ok) {
                         alert('Your comment has been saved! Thank you for your feedback');
+
+                        const comments = await loadPostComments(postId);
+                        postComments.comments = comments;
                     }
                 }
             });
