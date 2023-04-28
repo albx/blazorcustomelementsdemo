@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import './App.css';
@@ -15,9 +15,26 @@ const userInfo = {
 export const AppContext = React.createContext({})
 
 function App() {
+  const [blazorStarted, setBlazorStarted] = useState(false)
+  const [starting, setStarting] = useState(false)
+
+  useEffect(() => {
+    const startBlazor = async () => {
+      if (!blazorStarted && !starting) {
+        setStarting(true);
+
+        await window.Blazor.start();
+        
+        setBlazorStarted(true);
+      }
+    }
+
+    startBlazor();
+  }, [blazorStarted, setBlazorStarted, setStarting, starting])
+
   return (
     <>
-      <AppContext.Provider value={userInfo}>
+      { blazorStarted && <AppContext.Provider value={userInfo}>
         <header>
           <Navbar />
         </header>
@@ -31,7 +48,7 @@ function App() {
             </Routes>
           </div>
         </main>
-      </AppContext.Provider>
+      </AppContext.Provider> }
     </>
   );
 }

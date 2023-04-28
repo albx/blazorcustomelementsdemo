@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -12,36 +12,29 @@ function PostComments() {
         return response.data;
     }, []);
 
+    const postComments = useRef(null);
+
     useEffect(() => {
-        const registerBlazorStart = () => {
-            window.Blazor.start().then(() => {
-                const postComments = document.querySelector("post-comments");
-                const postId = postComments.getAttribute('post-id');
+        loadComments(id)
+            .then((comments) => {
+                postComments.current.comments = comments;
+            });
 
-                loadComments(postId)
-                    .then((comments) => {
-                        postComments.comments = comments;
-                    });
-        
-                postComments.title = 'Hello from backoffice';
-                postComments.onCommentAdded = async (comment) => {
-                    try {
-                        const url = `http://localhost:5238/api/posts/${postId}/comments`;
-                        await axios.post(url, comment);
+        postComments.current.title = 'Hello from backoffice';
+        postComments.current.onCommentAdded = async (comment) => {
+            try {
+                const url = `http://localhost:5238/api/posts/${id}/comments`;
+                await axios.post(url, comment);
 
-                        alert('Comment added successfully!');
+                alert('Comment added successfully!');
 
-                        const comments = await loadComments(postId);
-                        postComments.comments = comments;
-                    } catch (error) {
-                        alert ('Error adding a comment');
-                    }
-                }
-            })
+                const comments = await loadComments(id);
+                postComments.current.comments = comments;
+            } catch (error) {
+                alert('Error adding a comment');
+            }
         }
-
-        registerBlazorStart()
-    }, [loadComments]);
+    }, [loadComments, id, postComments]);
 
     return (
         <>
@@ -54,7 +47,7 @@ function PostComments() {
                 </div>
             </div>
             <hr />
-            <post-comments post-id={id}></post-comments>
+            <post-comments post-id={id} ref={postComments}></post-comments>
         </>
     )
 }
