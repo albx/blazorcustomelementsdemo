@@ -16,21 +16,17 @@ export const AppContext = React.createContext({})
 
 function App() {
   const [blazorStarted, setBlazorStarted] = useState(false)
-  const [starting, setStarting] = useState(false)
 
   useEffect(() => {
     const startBlazor = async () => {
-      if (!blazorStarted && !starting) {
-        setStarting(true);
-
+      if (!blazorStarted) {
         await window.Blazor.start();
-        
         setBlazorStarted(true);
       }
     }
 
     startBlazor();
-  }, [blazorStarted, setBlazorStarted, setStarting, starting])
+  }, [blazorStarted, setBlazorStarted])
 
   return (
     <>
