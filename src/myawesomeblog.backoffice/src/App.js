@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import './App.css';
@@ -15,6 +15,11 @@ const userInfo = {
 export const AppContext = React.createContext({})
 
 function App() {
+  useEffect(() => {
+    sessionStorage.setItem('user:role', userInfo.userRole);
+    sessionStorage.setItem('user:name', userInfo.userName);
+  }, [])
+
   return (
     <>
       <AppContext.Provider value={userInfo}>

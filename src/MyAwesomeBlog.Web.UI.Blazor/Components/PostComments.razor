@@ -1,4 +1,6 @@
 ﻿@inject CommentsService Service
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime Js 
 
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
@@ -23,7 +25,7 @@
             <InputTextArea @bind-Value="model.Content" class="form-control" />
             <ValidationMessage For="@(() => model.Content)" class="text-danger" />
         </div>
-        
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </EditForm>
 </div>
@@ -44,6 +46,10 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">@comment.Content</p>
+                        @if (canDelete)
+                        {
+                            <button @onclick="@(() => DeleteCommentAsync(comment))" type="button" class="btn btn-danger btn-sm">delete</button>
+                        }
                     </div>
                 </div>
             </div>
@@ -61,9 +67,16 @@
 
     private string? errorMessage = null;
 
+    private AuthenticationState? authenticationState;
+
+    private bool canDelete = false;
+
     protected override async Task OnInitializedAsync()
     {
         await LoadCommentsAsync();
+        authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        canDelete = authenticationState.User.IsInRole("administrator");
     }
 
     private async Task LoadCommentsAsync() => comments = await Service.LoadCommentsForPost(PostId);
@@ -80,6 +93,16 @@
         catch
         {
             errorMessage = "Error adding new comment. Please, try again later";
+        }
+    }
+
+    private async Task DeleteCommentAsync(CommentListItem comment)
+    {
+        var confirmed = await Js.InvokeAsync<bool>("confirm", "This comment will be deleted, are you sure?");
+        if (confirmed)
+        {
+            await Service.DeleteCommentAsync(PostId, comment.Id);
+            await LoadCommentsAsync();
         }
     }
 }

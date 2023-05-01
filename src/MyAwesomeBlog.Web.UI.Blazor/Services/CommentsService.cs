@@ -23,4 +23,10 @@ public class CommentsService
         var response = await Client.PostAsJsonAsync($"api/posts/{postId}/comments", comment);
         response.EnsureSuccessStatusCode();
     }
+
+    public async Task DeleteCommentAsync(int postId, int commentId)
+    {
+        var response = await Client.DeleteAsync($"api/posts/{postId}/comments/{commentId}");
+        response.EnsureSuccessStatusCode();
+    }
 }
