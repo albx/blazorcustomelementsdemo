@@ -1,0 +1,9 @@
+﻿.card {
+    background-color: lightblue;
+}
+.card > .card-header {
+    font-weight: bold;
+}
+.card > .card-body > .card-text {
+    font-size: 15px;
+}
