@@ -16,7 +16,7 @@ function PostComments() {
                 </div>
             </div>
             <hr />
-            <h2>Comments goes here</h2>
+            <h2>Comments go here</h2>
         </>
     )
 }
